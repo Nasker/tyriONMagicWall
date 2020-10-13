@@ -1,12 +1,12 @@
 #include <Arduino.h>
 #include "functionsHeaders.h"
 #include "States.h"
-
-// FROM MAC
+#include "AxisPing.h"
 
 int state = IDLE;
 uint32_t ellapsedTime = 0;
 int taskTime = 2000;
+AxisPing distanceSens;
 
 void setup() {
   Serial.begin(115200);
@@ -15,30 +15,33 @@ void setup() {
 }
 
 void loop() {
+  distanceSens.readPing();
+  Serial.println(distanceSens.ping());
   stateMachine();
+  delay(20);
 }
 
 void stateMachine(){
   switch(state){
     case IDLE:
-      if(ellapsedTime + taskTime < millis()){
-        ellapsedTime = millis();
+      if(distanceSens.isOver()){
         state = PLAYING;
-        Serial.println("Switching to PLAYING STATE");
+        Serial.println("\t\tSwitching to PLAYING STATE");
+        delay(1000);
       }
       break;
     case PLAYING:
-      if(ellapsedTime + taskTime < millis()){
-        ellapsedTime = millis();
+      if(distanceSens.ping() > 100){
         state = ENDING;
-        Serial.println("Switching to ENDING STATE");
+        Serial.println("\t\tSwitching to ENDING STATE");
+        delay(1000);
       }
       break;
     case ENDING:
-      if(ellapsedTime + taskTime < millis()){
-        ellapsedTime = millis(); 
+      if(!distanceSens.isOver()){
         state = IDLE;
-        Serial.println("Switching to IDLE STATE");
+        Serial.println("\t\tSwitching to IDLE STATE");
+        delay(1000);
       }
       break;
   } 
