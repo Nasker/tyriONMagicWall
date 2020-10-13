@@ -2,6 +2,8 @@
 #include "functionsHeaders.h"
 #include "States.h"
 
+// FROM MAC
+
 int state = IDLE;
 uint32_t ellapsedTime = 0;
 int taskTime = 2000;
