@@ -1,0 +1,4 @@
+#define TRIGGER_SONAR 5
+#define ECHO_SONAR 6
+#define MAX_DISTANCE 50
+#define MIN_DISTANCE 5
