@@ -1,8 +1,8 @@
 #include "AxisPing.h"
 
 
-AxisPing::AxisPing(){
- sonar = new NewPing(TRIGGER_SONAR, ECHO_SONAR, MAX_DISTANCE);
+AxisPing::AxisPing(int triggerPin, int echoPin, int maxDistance){
+ sonar = new NewPing(triggerPin, echoPin, maxDistance);
 }
 
 void AxisPing::readPing() {

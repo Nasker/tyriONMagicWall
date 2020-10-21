@@ -1,6 +1,5 @@
 #include <NewPing.h>
 #include <Arduino.h>
-#include "constants.h"
 
 class AxisPing{
   NewPing* sonar;
@@ -8,7 +7,7 @@ class AxisPing{
   boolean over;
 
   public:
-    AxisPing();
+    AxisPing(int triggerPin, int echoPin, int maxDistance);
     void readPing();
     bool isOver();
     int ping();

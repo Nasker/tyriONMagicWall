@@ -1,12 +1,13 @@
 #include <Arduino.h>
-#include "functionsHeaders.h"
+#include "FunctionsHeaders.h"
 #include "States.h"
 #include "AxisPing.h"
+#include "Pins&Constants.h"
 
 int state = IDLE;
 uint32_t ellapsedTime = 0;
 int taskTime = 2000;
-AxisPing distanceSens;
+AxisPing distanceSens(TRIGGER_SONAR, ECHO_SONAR, MAX_DISTANCE);
 
 void setup() {
   Serial.begin(115200);
